@@ -5,16 +5,23 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    public static String readFile(String filename) {
-        String result = "";
-        try (FileReader fr = new FileReader(filename)) {
-            int count = 0;
-            while ((count = fr.read()) != -1) {
-                result += (char) count;
+    String result = "";
+
+
+  try(FileReader reader = new FileReader()){
+        int c = 0;
+        String character = "";
+        while((c = reader.read()) != -1){
+            character += (char)c;
+            if(character.length() == 7){
+                int charCode = Integer.parseInt(character, 2);
+                result += (char) charCode;
+                character = "";
             }
-        } catch (IOException i) {
-            i.printStackTrace();
         }
-        return result;
     }
+    catch(IOException e){
+        e.printStackTrace();
+    }
+    return result;
 }
